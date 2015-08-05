@@ -4,11 +4,11 @@ namespace Trivia;
 
 class Player
 {
-    /** @var  int */
-    private $numPurses;
-
     /** @var string */
     private $name;
+
+    /** @var  int */
+    private $numPurses;
 
     /** @var int */
     private $place;

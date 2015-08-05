@@ -14,7 +14,7 @@ class Questions
     {
         $categories = ['Pop', 'Science', 'Sports', 'Rock'];
         foreach ($categories as $categoryName) {
-            $this->categories[] = $this->createCategory($categoryName);
+            $this->categories[] = $this->createCategoryQuestions($categoryName);
         }
     }
 
@@ -49,7 +49,7 @@ class Questions
      * @param int $categoryName
      * @return Category
      */
-    protected function createCategory($categoryName)
+    protected function createCategoryQuestions($categoryName)
     {
         $category = new Category($categoryName);
         $this->addQuestionsTo($category);

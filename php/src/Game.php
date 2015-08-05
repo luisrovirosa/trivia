@@ -31,11 +31,6 @@ class Game
         return $this;
     }
 
-    private function howManyPlayers()
-    {
-        return $this->players->number();
-    }
-
     public function roll($roll)
     {
         $player = $this->currentPlayer();
@@ -51,19 +46,6 @@ class Game
             $this->messages->isGettingOutOfPenalty($player);
         }
         $this->playTurn($roll);
-    }
-
-    private function askQuestion()
-    {
-        $question = $this->questions->questionFor($this->currentPlayer()->position());
-        $this->messages->question($question);
-
-        return $question;
-    }
-
-    private function currentCategory()
-    {
-        return $this->questions->categoryNameFor($this->currentPlayer()->position());
     }
 
     public function wasCorrectlyAnswered()
@@ -91,14 +73,6 @@ class Game
     {
         $currentPurses = $this->currentPlayer()->purses();
         return !($currentPurses == 6);
-    }
-
-    /**
-     * @return Player
-     */
-    private function currentPlayer()
-    {
-        return $this->players->current();
     }
 
     /**
@@ -132,8 +106,34 @@ class Game
         $this->questions = new Questions();
     }
 
+    /**
+     * @return Player
+     */
+    private function currentPlayer()
+    {
+        return $this->players->current();
+    }
+
+    private function howManyPlayers()
+    {
+        return $this->players->number();
+    }
+
     private function nextPlayer()
     {
         $this->players->next();
+    }
+
+    private function currentCategory()
+    {
+        return $this->questions->categoryNameFor($this->currentPlayer()->position());
+    }
+
+    private function askQuestion()
+    {
+        $question = $this->questions->questionFor($this->currentPlayer()->position());
+        $this->messages->question($question);
+
+        return $question;
     }
 }

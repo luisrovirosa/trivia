@@ -13,22 +13,32 @@ class Messages
 
     /**
      * Messages constructor.
+     * @param Output $output
      */
     public function __construct(Output $output)
     {
         $this->output = $output;
     }
 
+    /**
+     * @param Player $player
+     */
     public function newPlayer(Player $player)
     {
         $this->write($player->name() . " was added");
     }
 
+    /**
+     * @param $numberOfPlayers
+     */
     public function numberOfPlayers($numberOfPlayers)
     {
         $this->write("They are player number $numberOfPlayers");
     }
 
+    /**
+     * @param Player $player
+     */
     public function isPlaying(Player $player)
     {
         $this->write($player->name() . " is the current player");
