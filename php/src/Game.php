@@ -100,19 +100,6 @@ class Game
         return !($currentPurses == 6);
     }
 
-    private function echoln($string)
-    {
-        $this->output->write($string . "\n");
-    }
-
-    /**
-     * @return string
-     */
-    private function currentPlayerName()
-    {
-        return $this->currentPlayer()->name();
-    }
-
     /**
      * @return Player
      */
@@ -143,12 +130,7 @@ class Game
     {
         $this->movePlayer($roll);
 
-        $this->echoln(
-            $this->currentPlayerName()
-            . "'s new location is "
-            . $this->currentPlayer()->position()
-        );
-        $this->echoln("The category is " . $this->currentCategory());
+        $this->messages->move($this->currentPlayer(), $this->currentCategory());
         $this->askQuestion();
     }
 

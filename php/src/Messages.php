@@ -29,11 +29,6 @@ class Messages
         $this->write("They are player number $numberOfPlayers");
     }
 
-    private function write($string)
-    {
-        $this->output->write($string . "\n");
-    }
-
     public function isPlaying(Player $player)
     {
         $this->write($player->name() . " is the current player");
@@ -72,5 +67,16 @@ class Messages
     {
         $this->write("Question was incorrectly answered");
         $this->write($player->name() . " was sent to the penalty box");
+    }
+
+    public function move(Player $player, $categoryName)
+    {
+        $this->write($player->name() . "'s new location is " . $player->position());
+        $this->write("The category is $categoryName");
+    }
+
+    private function write($string)
+    {
+        $this->output->write($string . "\n");
     }
 }
