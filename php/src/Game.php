@@ -15,8 +15,6 @@ class Game
     /** @var Questions */
     private $questions;
 
-    private $isGettingOutOfPenaltyBox;
-
     /** @var Output */
     private $output;
 
@@ -47,17 +45,17 @@ class Game
 
     public function roll($roll)
     {
-        $this->messages->isPlaying($this->currentPlayer());
+        $player = $this->currentPlayer();
+        $this->messages->isPlaying($player);
         $this->messages->rolls($roll);
 
-        $isInPenaltyBox = $this->currentPlayer()->isInPenaltyBox();
-        $this->isGettingOutOfPenaltyBox = $roll % 2 != 0;
-        if ($isInPenaltyBox && !$this->isGettingOutOfPenaltyBox) {
-            $this->messages->isNotGettingOutOfPenalty($this->currentPlayer());
+        $player->gettingOutOfPenaltyBox($roll % 2 != 0);
+        if ($player->isInPenaltyBox() && !$player->isGettingOutOfPenaltyBox()) {
+            $this->messages->isNotGettingOutOfPenalty($player);
             return;
         }
-        if ($isInPenaltyBox) {
-            $this->messages->isGettingOutOfPenalty($this->currentPlayer());
+        if ($player->isInPenaltyBox()) {
+            $this->messages->isGettingOutOfPenalty($player);
         }
         $this->playTurn($roll);
     }
@@ -79,7 +77,7 @@ class Game
     {
         $gameContinue = true;
         $isInPenaltyBox = $this->currentPlayer()->isInPenaltyBox();
-        if (!$isInPenaltyBox || $this->isGettingOutOfPenaltyBox) {
+        if (!$isInPenaltyBox || $this->currentPlayer()->isGettingOutOfPenaltyBox()) {
             $this->winPurse();
             $gameContinue = $this->didPlayerWin();
         }

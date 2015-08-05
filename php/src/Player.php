@@ -16,6 +16,9 @@ class Player
     /** @var bool */
     private $isInPenaltyBox;
 
+    /** @var  bool */
+    private $isGettingOutOfPenaltyBox;
+
     /**
      * Player constructor.
      * @param string $name
@@ -79,5 +82,21 @@ class Player
     public function gotoPenaltyBox()
     {
         $this->isInPenaltyBox = true;
+    }
+
+    /**
+     * @param boolean $gettingOut
+     */
+    public function gettingOutOfPenaltyBox($gettingOut)
+    {
+        $this->isGettingOutOfPenaltyBox = $gettingOut;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGettingOutOfPenaltyBox()
+    {
+        return $this->isGettingOutOfPenaltyBox;
     }
 }
