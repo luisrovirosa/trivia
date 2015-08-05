@@ -6,11 +6,8 @@ use Trivia\Output\Output;
 
 class Game
 {
-    /** @var Player[] */
+    /** @var Players */
     private $players;
-
-    /** @var int */
-    private $currentPlayerIndex = 0;
 
     /** @var Questions */
     private $questions;
@@ -20,7 +17,7 @@ class Game
 
     public function  __construct(Output $output)
     {
-        $this->players = array();
+        $this->players = new Players();
 
         $this->prepareQuestions();
 
@@ -29,18 +26,19 @@ class Game
         $this->messages = new Messages($output);
     }
 
-    public function add($playerName)
+    public function addPlayer($playerName)
     {
         $player = new Player($playerName);
-        $this->players[] = $player;
+        $this->players->add($player);
 
         $this->messages->newPlayer($player);
         $this->messages->numberOfPlayers($this->howManyPlayers());
+        return $this;
     }
 
     private function howManyPlayers()
     {
-        return count($this->players);
+        return $this->players->number();
     }
 
     public function roll($roll)
@@ -105,7 +103,7 @@ class Game
      */
     private function currentPlayer()
     {
-        return $this->players[$this->currentPlayerIndex];
+        return $this->players->current();
     }
 
     /**
@@ -141,6 +139,6 @@ class Game
 
     private function nextPlayer()
     {
-        $this->currentPlayerIndex = ($this->currentPlayerIndex + 1) % $this->howManyPlayers();
+        $this->players->next();
     }
 }

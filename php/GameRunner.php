@@ -24,9 +24,10 @@ class GameRunner
 
     protected function setPlayers()
     {
-        $this->game->add("Chet");
-        $this->game->add("Pat");
-        $this->game->add("Sue");
+        $this->game
+            ->addPlayer("Chet")
+            ->addPlayer("Pat")
+            ->addPlayer("Sue");
     }
 
     protected function play()
