@@ -7,15 +7,16 @@ class Game
     /** @var Player[] */
     private $players;
 
+    /** @var int */
+    private $currentPlayerIndex = 0;
+
     /** @var Questions */
     private $questions;
 
-    private $currentPlayer = 0;
     private $isGettingOutOfPenaltyBox;
 
     function  __construct()
     {
-
         $this->players = array();
 
         $this->prepareQuestions();
@@ -83,23 +84,23 @@ class Game
                 $this->echoln("Answer was correct!!!!");
                 $this->winPurse();
                 $this->echoln(
-                    $this->players[$this->currentPlayer]->name()
+                    $this->players[$this->currentPlayerIndex]->name()
                     . " now has "
                     . $this->currentPlayer()->purses()
                     . " Gold Coins."
                 );
 
                 $winner = $this->didPlayerWin();
-                $this->currentPlayer++;
-                if ($this->currentPlayer == count($this->players)) {
-                    $this->currentPlayer = 0;
+                $this->currentPlayerIndex++;
+                if ($this->currentPlayerIndex == count($this->players)) {
+                    $this->currentPlayerIndex = 0;
                 }
 
                 return $winner;
             } else {
-                $this->currentPlayer++;
-                if ($this->currentPlayer == count($this->players)) {
-                    $this->currentPlayer = 0;
+                $this->currentPlayerIndex++;
+                if ($this->currentPlayerIndex == count($this->players)) {
+                    $this->currentPlayerIndex = 0;
                 }
                 return true;
             }
@@ -108,17 +109,14 @@ class Game
             $this->echoln("Answer was corrent!!!!");
             $this->winPurse();
             $this->echoln(
-                $this->players[$this->currentPlayer]->name()
+                $this->players[$this->currentPlayerIndex]->name()
                 . " now has "
                 . $this->currentPlayer()->purses()
                 . " Gold Coins."
             );
 
             $winner = $this->didPlayerWin();
-            $this->currentPlayer++;
-            if ($this->currentPlayer == count($this->players)) {
-                $this->currentPlayer = 0;
-            }
+            $this->nextPlayer();
 
             return $winner;
         }
@@ -128,14 +126,11 @@ class Game
     {
         $this->echoln("Question was incorrectly answered");
         $this->echoln(
-            $this->players[$this->currentPlayer]->name() . " was sent to the penalty box"
+            $this->players[$this->currentPlayerIndex]->name() . " was sent to the penalty box"
         );
         $this->currentPlayer()->gotoPenaltyBox();
 
-        $this->currentPlayer++;
-        if ($this->currentPlayer == count($this->players)) {
-            $this->currentPlayer = 0;
-        }
+        $this->nextPlayer();
         return true;
     }
 
@@ -163,7 +158,7 @@ class Game
      */
     protected function currentPlayer()
     {
-        return $this->players[$this->currentPlayer];
+        return $this->players[$this->currentPlayerIndex];
     }
 
     /**
@@ -199,6 +194,11 @@ class Game
     protected function prepareQuestions()
     {
         $this->questions = new Questions();
+    }
+
+    protected function nextPlayer()
+    {
+        $this->currentPlayerIndex = ($this->currentPlayerIndex + 1) % $this->howManyPlayers();
     }
 
 }
