@@ -31,9 +31,9 @@ class Questions
      * @param int $position
      * @return string
      */
-    public function questionFor($position)
+    public function questionTextFor($position)
     {
-        return $this->categoryFor($position)->question();
+        return $this->categoryFor($position)->questionText();
     }
 
     /**
@@ -52,9 +52,19 @@ class Questions
     protected function createCategory($categoryName)
     {
         $category = new Category($categoryName);
-        for ($i = 0; $i < 50; $i++) {
-            $category->addQuestion("$categoryName Question " . $i);
-        }
+        $this->addQuestionsTo($category);
         return $category;
+    }
+
+    /**
+     * @param Category $category
+     */
+    protected function addQuestionsTo(Category $category)
+    {
+        $categoryName = $category->name();
+        for ($i = 0; $i < 50; $i++) {
+            $question = new Question("$categoryName Question " . $i);
+            $category->addQuestion($question);
+        }
     }
 }

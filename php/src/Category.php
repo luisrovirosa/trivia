@@ -4,7 +4,7 @@ namespace Trivia;
 
 class Category
 {
-    /** @var  string[] */
+    /** @var Question[] */
     private $questions;
 
     /** @var  string */
@@ -21,9 +21,9 @@ class Category
     }
 
     /**
-     * @param string $question
+     * @param Question $question
      */
-    public function addQuestion($question)
+    public function addQuestion(Question $question)
     {
         $this->questions[] = $question;
     }
@@ -31,10 +31,11 @@ class Category
     /**
      * @return string
      */
-    public function question()
+    public function questionText()
     {
+        /** @var Question $question */
         $question = array_shift($this->questions);
-        return $question;
+        return $question->text();
     }
 
     /**

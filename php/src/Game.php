@@ -70,7 +70,7 @@ class Game
 
     function  askQuestion()
     {
-        $question = $this->questions->questionFor($this->currentPlayer()->position());
+        $question = $this->questions->questionTextFor($this->currentPlayer()->position());
         $this->echoln($question);
 
         return $question;
