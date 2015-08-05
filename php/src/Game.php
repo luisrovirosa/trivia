@@ -12,16 +12,11 @@ class Game
     /** @var Questions */
     private $questions;
 
-    /** @var Output */
-    private $output;
-
     public function  __construct(Output $output)
     {
         $this->players = new Players();
 
         $this->prepareQuestions();
-
-        $this->output = $output;
 
         $this->messages = new Messages($output);
     }
