@@ -49,18 +49,17 @@ class Game
     {
         $this->messages->isPlaying($this->currentPlayer());
         $this->messages->rolls($roll);
-        if ($this->currentPlayer()->isInPenaltyBox()) {
-            $this->isGettingOutOfPenaltyBox = $roll % 2 != 0;
 
-            if ($this->isGettingOutOfPenaltyBox) {
-                $this->messages->isGettingOutOfPenalty($this->currentPlayer());
-                $this->playTurn($roll);
-            } else {
-                $this->messages->isNotGettingOutOfPenalty($this->currentPlayer());
-            }
-        } else {
-            $this->playTurn($roll);
+        $isInPenaltyBox = $this->currentPlayer()->isInPenaltyBox();
+        $this->isGettingOutOfPenaltyBox = $roll % 2 != 0;
+        if ($isInPenaltyBox && !$this->isGettingOutOfPenaltyBox) {
+            $this->messages->isNotGettingOutOfPenalty($this->currentPlayer());
+            return;
         }
+        if ($isInPenaltyBox) {
+            $this->messages->isGettingOutOfPenalty($this->currentPlayer());
+        }
+        $this->playTurn($roll);
     }
 
     private function askQuestion()
