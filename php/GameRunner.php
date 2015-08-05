@@ -18,13 +18,21 @@ class GameRunner
 
     public function run()
     {
+        $this->setPlayers();
+        $this->play();
+    }
+
+    protected function setPlayers()
+    {
         $this->game->add("Chet");
         $this->game->add("Pat");
         $this->game->add("Sue");
+    }
 
+    protected function play()
+    {
         do {
             $this->game->roll(rand(0, 5) + 1);
-
             if (rand(0, 9) == 7) {
                 $notAWinner = $this->game->wrongAnswer();
             } else {
