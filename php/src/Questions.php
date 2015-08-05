@@ -29,11 +29,11 @@ class Questions
 
     /**
      * @param int $position
-     * @return string
+     * @return Question
      */
-    public function questionTextFor($position)
+    public function questionFor($position)
     {
-        return $this->categoryFor($position)->questionText();
+        return $this->categoryFor($position)->question();
     }
 
     /**

@@ -42,8 +42,7 @@ class Game
         $this->players[] = $player;
 
         $this->messages->newPlayer($player);
-        $this->messages->numberOfPlayers(count($this->players));
-        return true;
+        $this->messages->numberOfPlayers($this->howManyPlayers());
     }
 
     function howManyPlayers()
@@ -53,21 +52,16 @@ class Game
 
     function  roll($roll)
     {
-        $this->echoln($this->currentPlayerName() . " is the current player");
-        $this->echoln("They have rolled a " . $roll);
+        $this->messages->isPlaying($this->currentPlayer());
+        $this->messages->rolls($roll);
         if ($this->currentPlayer()->isInPenaltyBox()) {
             $this->isGettingOutOfPenaltyBox = $roll % 2 != 0;
 
             if ($this->isGettingOutOfPenaltyBox) {
-                $this->echoln(
-                    $this->currentPlayerName() . " is getting out of the penalty box"
-                );
+                $this->messages->isGettingOutOfPenalty($this->currentPlayer());
                 $this->playTurn($roll);
             } else {
-                $this->echoln(
-                    $this->currentPlayerName() .
-                    " is not getting out of the penalty box"
-                );
+                $this->messages->isNotGettingOutOfPenalty($this->currentPlayer());
             }
         } else {
             $this->playTurn($roll);
@@ -76,8 +70,9 @@ class Game
 
     function  askQuestion()
     {
-        $question = $this->questions->questionTextFor($this->currentPlayer()->position());
-        $this->echoln($question);
+        $question = $this->questions->questionFor($this->currentPlayer()->position());
+        $this->messages->question($question);
+
 
         return $question;
     }

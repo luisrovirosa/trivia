@@ -29,13 +29,13 @@ class Category
     }
 
     /**
-     * @return string
+     * @return Question
      */
-    public function questionText()
+    public function question()
     {
         /** @var Question $question */
         $question = array_shift($this->questions);
-        return $question->text();
+        return $question;
     }
 
     /**
