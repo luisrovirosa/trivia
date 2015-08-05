@@ -12,23 +12,9 @@ class Questions
      */
     public function __construct()
     {
-        $popCategory = new Category('Pop');
-        $scienceCategory = new Category('Science');
-        $sportsCategory = new Category('Sports');
-        $rockCategory = new Category('Rock');
-
-        $this->categories = [
-            $popCategory,
-            $scienceCategory,
-            $sportsCategory,
-            $rockCategory
-        ];
-
-        for ($i = 0; $i < 50; $i++) {
-            $popCategory->addQuestion("Pop Question " . $i);
-            $scienceCategory->addQuestion("Science Question " . $i);
-            $sportsCategory->addQuestion("Sports Question " . $i);
-            $rockCategory->addQuestion("Rock Question " . $i);
+        $categories = ['Pop', 'Science', 'Sports', 'Rock'];
+        foreach ($categories as $categoryName) {
+            $this->categories[] = $this->createCategory($categoryName);
         }
     }
 
@@ -49,5 +35,18 @@ class Questions
     protected function categoryFor($position)
     {
         return $this->categories[$position % 4];
+    }
+
+    /**
+     * @param $categoryName
+     * @return Category
+     */
+    protected function createCategory($categoryName)
+    {
+        $category = new Category($categoryName);
+        for ($i = 0; $i < 50; $i++) {
+            $category->addQuestion("$categoryName Question " . $i);
+        }
+        return $category;
     }
 }
