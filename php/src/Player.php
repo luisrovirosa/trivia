@@ -32,6 +32,9 @@ class Player
         return $this->name;
     }
 
+    /**
+     * @return int
+     */
     public function position()
     {
         return $this->place;
@@ -45,11 +48,17 @@ class Player
         $this->place = $newPosition;
     }
 
+    /**
+     *
+     */
     public function winPurse()
     {
         $this->numPurses++;
     }
 
+    /**
+     * @return int
+     */
     public function purses()
     {
         return $this->numPurses;

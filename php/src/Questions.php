@@ -18,18 +18,26 @@ class Questions
         }
     }
 
+    /**
+     * @param int $position
+     * @return string
+     */
     public function categoryNameFor($position)
     {
         return $this->categoryFor($position)->name();
     }
 
+    /**
+     * @param int $position
+     * @return string
+     */
     public function questionFor($position)
     {
         return $this->categoryFor($position)->question();
     }
 
     /**
-     * @param $position
+     * @param int $position
      * @return Category
      */
     protected function categoryFor($position)
@@ -38,7 +46,7 @@ class Questions
     }
 
     /**
-     * @param $categoryName
+     * @param int $categoryName
      * @return Category
      */
     protected function createCategory($categoryName)
