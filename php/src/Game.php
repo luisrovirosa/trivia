@@ -7,7 +7,6 @@ class Game
     /** @var Player[] */
     private $players;
 
-    private $purses;
     private $inPenaltyBox;
 
     private $popQuestions;
@@ -22,7 +21,6 @@ class Game
     {
 
         $this->players = array();
-        $this->purses = array(0);
         $this->inPenaltyBox = array(0);
 
         $this->popQuestions = array();
@@ -51,7 +49,6 @@ class Game
     function add($playerName)
     {
         $this->players[] = new Player($playerName);
-        $this->purses[$this->howManyPlayers()] = 0;
         $this->inPenaltyBox[$this->howManyPlayers()] = false;
 
         $this->echoln($playerName . " was added");
@@ -159,11 +156,11 @@ class Game
         if ($this->inPenaltyBox[$this->currentPlayer]) {
             if ($this->isGettingOutOfPenaltyBox) {
                 $this->echoln("Answer was correct!!!!");
-                $this->purses[$this->currentPlayer]++;
+                $this->winPurse();
                 $this->echoln(
                     $this->players[$this->currentPlayer]->name()
                     . " now has "
-                    . $this->purses[$this->currentPlayer]
+                    . $this->currentPlayer()->purses()
                     . " Gold Coins."
                 );
 
@@ -184,11 +181,11 @@ class Game
         } else {
 
             $this->echoln("Answer was corrent!!!!");
-            $this->purses[$this->currentPlayer]++;
+            $this->winPurse();
             $this->echoln(
                 $this->players[$this->currentPlayer]->name()
                 . " now has "
-                . $this->purses[$this->currentPlayer]
+                . $this->currentPlayer()->purses()
                 . " Gold Coins."
             );
 
@@ -219,7 +216,8 @@ class Game
 
     function didPlayerWin()
     {
-        return !($this->purses[$this->currentPlayer] == 6);
+        $currentPurses = $this->currentPlayer()->purses();
+        return !($currentPurses == 6);
     }
 
     function echoln($string)
@@ -250,6 +248,11 @@ class Game
     {
         $nextPlace = ($this->currentPlayer()->position() + $roll) % 12;
         $this->currentPlayer()->moveTo($nextPlace);
+    }
+
+    protected function winPurse()
+    {
+        $this->currentPlayer()->winPurse();
     }
 
 }
