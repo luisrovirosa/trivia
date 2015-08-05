@@ -78,7 +78,7 @@ class Game
 
     function currentCategory()
     {
-        return $this->questions->categoryFor($this->currentPlayer()->position());
+        return $this->questions->categoryNameFor($this->currentPlayer()->position());
     }
 
     function wasCorrectlyAnswered()

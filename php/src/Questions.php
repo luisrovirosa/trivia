@@ -4,58 +4,50 @@ namespace Trivia;
 
 class Questions
 {
-    /** @var string[] */
-    private $popQuestions;
-    /** @var string[] */
-    private $scienceQuestions;
-    /** @var string[] */
-    private $sportsQuestions;
-    /** @var string[] */
-    private $rockQuestions;
+    /** @var  Category[] */
+    private $categories;
 
     /**
      * Questions constructor.
      */
     public function __construct()
     {
-        $this->popQuestions = [];
-        $this->scienceQuestions = [];
-        $this->sportsQuestions = [];
-        $this->rockQuestions = [];
+        $popCategory = new Category('Pop');
+        $scienceCategory = new Category('Science');
+        $sportsCategory = new Category('Sports');
+        $rockCategory = new Category('Rock');
+
+        $this->categories = [
+            $popCategory,
+            $scienceCategory,
+            $sportsCategory,
+            $rockCategory
+        ];
 
         for ($i = 0; $i < 50; $i++) {
-            array_push($this->popQuestions, "Pop Question " . $i);
-            array_push($this->scienceQuestions, ("Science Question " . $i));
-            array_push($this->sportsQuestions, ("Sports Question " . $i));
-            array_push($this->rockQuestions, "Rock Question " . $i);
+            $popCategory->addQuestion("Pop Question " . $i);
+            $scienceCategory->addQuestion("Science Question " . $i);
+            $sportsCategory->addQuestion("Sports Question " . $i);
+            $rockCategory->addQuestion("Rock Question " . $i);
         }
     }
 
-    public function categoryFor($position)
+    public function categoryNameFor($position)
     {
-        $categories = [
-            0 => 'Pop',
-            1 => 'Science',
-            2 => 'Sports',
-            3 => 'Rock',
-        ];
-        $categoryType = $position % 4;
-        return $categories[$categoryType];
+        return $this->categoryFor($position)->name();
     }
 
     public function questionFor($position)
     {
-        if ($this->categoryFor($position) == "Pop") {
-            return array_shift($this->popQuestions);
-        }
-        if ($this->categoryFor($position) == "Science") {
-            return array_shift($this->scienceQuestions);
-        }
-        if ($this->categoryFor($position) == "Sports") {
-            return array_shift($this->sportsQuestions);
-        }
-        if ($this->categoryFor($position) == "Rock") {
-            return array_shift($this->rockQuestions);
-        }
+        return $this->categoryFor($position)->question();
+    }
+
+    /**
+     * @param $position
+     * @return Category
+     */
+    protected function categoryFor($position)
+    {
+        return $this->categories[$position % 4];
     }
 }
