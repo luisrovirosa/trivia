@@ -13,6 +13,9 @@ class Player
     /** @var int */
     private $place;
 
+    /** @var bool */
+    private $isInPenaltyBox;
+
     /**
      * Player constructor.
      * @param string $name
@@ -22,6 +25,7 @@ class Player
         $this->name = $name;
         $this->place = 0;
         $this->numPurses = 0;
+        $this->isInPenaltyBox = false;
     }
 
     /**
@@ -64,4 +68,16 @@ class Player
         return $this->numPurses;
     }
 
+    /**
+     * @return bool
+     */
+    public function isInPenaltyBox()
+    {
+        return $this->isInPenaltyBox;
+    }
+
+    public function gotoPenaltyBox()
+    {
+        $this->isInPenaltyBox = true;
+    }
 }
