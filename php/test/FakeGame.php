@@ -2,7 +2,9 @@
 
 namespace Trivia\Test;
 
-class FakeGame extends \Game
+use Trivia\Game;
+
+class FakeGame extends Game
 {
     private $file;
     /**
@@ -12,6 +14,7 @@ class FakeGame extends \Game
 
     /**
      * FakeGame constructor.
+     * @param $logFileName
      */
     public function __construct($logFileName)
     {

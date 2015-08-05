@@ -3,15 +3,15 @@
 class GameRunner
 {
     /**
-     * @var Game
+     * @var \Trivia\Game
      */
     private $game;
 
     /**
      * GameRunner constructor.
-     * @param Game $game
+     * @param \Trivia\Game $game
      */
-    public function __construct(Game $game)
+    public function __construct(\Trivia\Game $game)
     {
         $this->game = $game;
     }

@@ -6,6 +6,7 @@ class RegressionTest extends \PHPUnit_Framework_TestCase
 {
     const OUTPUT_FILE = './test/current-play.log';
     const ORIGINAL_FILE = './test/play.log';
+    const NUMBER_OR_GAMES = 10;
 
     /** @test */
     public function it_returns_the_same_output()
@@ -24,7 +25,7 @@ class RegressionTest extends \PHPUnit_Framework_TestCase
     {
         $game = new FakeGame($logFileName);
         $runner = new \GameRunner($game);
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < self::NUMBER_OR_GAMES; $i++) {
             $runner->run();
         }
     }
