@@ -20,7 +20,7 @@ class Game
     /** @var Output */
     private $output;
 
-    function  __construct(Output $output)
+    public function  __construct(Output $output)
     {
         $this->players = array();
 
@@ -31,12 +31,12 @@ class Game
         $this->messages = new Messages($output);
     }
 
-    function isPlayable()
+    private function isPlayable()
     {
         return ($this->howManyPlayers() >= 2);
     }
 
-    function add($playerName)
+    public function add($playerName)
     {
         $player = new Player($playerName);
         $this->players[] = $player;
@@ -45,12 +45,12 @@ class Game
         $this->messages->numberOfPlayers($this->howManyPlayers());
     }
 
-    function howManyPlayers()
+    private function howManyPlayers()
     {
         return count($this->players);
     }
 
-    function  roll($roll)
+    public function roll($roll)
     {
         $this->messages->isPlaying($this->currentPlayer());
         $this->messages->rolls($roll);
@@ -68,7 +68,7 @@ class Game
         }
     }
 
-    function  askQuestion()
+    private function askQuestion()
     {
         $question = $this->questions->questionFor($this->currentPlayer()->position());
         $this->messages->question($question);
@@ -76,12 +76,12 @@ class Game
         return $question;
     }
 
-    function currentCategory()
+    private function currentCategory()
     {
         return $this->questions->categoryNameFor($this->currentPlayer()->position());
     }
 
-    function wasCorrectlyAnswered()
+    public function wasCorrectlyAnswered()
     {
         if ($this->currentPlayer()->isInPenaltyBox()) {
             if ($this->isGettingOutOfPenaltyBox) {
@@ -107,7 +107,7 @@ class Game
         }
     }
 
-    function wrongAnswer()
+    public function wrongAnswer()
     {
         $this->echoln("Question was incorrectly answered");
         $this->echoln(
@@ -119,13 +119,13 @@ class Game
         return true;
     }
 
-    function didPlayerWin()
+    private function didPlayerWin()
     {
         $currentPurses = $this->currentPlayer()->purses();
         return !($currentPurses == 6);
     }
 
-    function echoln($string)
+    private function echoln($string)
     {
         $this->output->write($string . "\n");
     }
@@ -133,7 +133,7 @@ class Game
     /**
      * @return string
      */
-    protected function currentPlayerName()
+    private function currentPlayerName()
     {
         return $this->currentPlayer()->name();
     }
@@ -141,7 +141,7 @@ class Game
     /**
      * @return Player
      */
-    protected function currentPlayer()
+    private function currentPlayer()
     {
         return $this->players[$this->currentPlayerIndex];
     }
@@ -149,13 +149,13 @@ class Game
     /**
      * @param $roll
      */
-    protected function movePlayer($roll)
+    private function movePlayer($roll)
     {
         $nextPlace = ($this->currentPlayer()->position() + $roll) % 12;
         $this->currentPlayer()->moveTo($nextPlace);
     }
 
-    protected function winPurse()
+    private function winPurse()
     {
         $this->currentPlayer()->winPurse();
         $this->messages->winPurse($this->currentPlayer());
@@ -164,7 +164,7 @@ class Game
     /**
      * @param $roll
      */
-    protected function playTurn($roll)
+    private function playTurn($roll)
     {
         $this->movePlayer($roll);
 
@@ -177,14 +177,13 @@ class Game
         $this->askQuestion();
     }
 
-    protected function prepareQuestions()
+    private function prepareQuestions()
     {
         $this->questions = new Questions();
     }
 
-    protected function nextPlayer()
+    private function nextPlayer()
     {
         $this->currentPlayerIndex = ($this->currentPlayerIndex + 1) % $this->howManyPlayers();
     }
-
 }
