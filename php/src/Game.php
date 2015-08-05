@@ -78,19 +78,14 @@ class Game
 
     public function wasCorrectlyAnswered()
     {
-        if ($this->currentPlayer()->isInPenaltyBox()) {
-            if ($this->isGettingOutOfPenaltyBox) {
-                $this->winPurse();
-                $winner = $this->didPlayerWin();
-            } else {
-                $winner = true;
-            }
-        } else {
+        $gameContinue = true;
+        $isInPenaltyBox = $this->currentPlayer()->isInPenaltyBox();
+        if (!$isInPenaltyBox || $this->isGettingOutOfPenaltyBox) {
             $this->winPurse();
-            $winner = $this->didPlayerWin();
+            $gameContinue = $this->didPlayerWin();
         }
         $this->nextPlayer();
-        return $winner;
+        return $gameContinue;
     }
 
     public function wrongAnswer()
