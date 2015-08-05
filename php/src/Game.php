@@ -7,12 +7,10 @@ class Game
     /** @var Player[] */
     private $players;
 
-    private $inPenaltyBox;
+    /** @var Questions */
+    private $questions;
 
-    private $popQuestions;
-    private $scienceQuestions;
-    private $sportsQuestions;
-    private $rockQuestions;
+    private $inPenaltyBox;
 
     private $currentPlayer = 0;
     private $isGettingOutOfPenaltyBox;
@@ -21,24 +19,10 @@ class Game
     {
 
         $this->players = array();
+
         $this->inPenaltyBox = array(0);
 
-        $this->popQuestions = array();
-        $this->scienceQuestions = array();
-        $this->sportsQuestions = array();
-        $this->rockQuestions = array();
-
-        for ($i = 0; $i < 50; $i++) {
-            array_push($this->popQuestions, "Pop Question " . $i);
-            array_push($this->scienceQuestions, ("Science Question " . $i));
-            array_push($this->sportsQuestions, ("Sports Question " . $i));
-            array_push($this->rockQuestions, $this->createRockQuestion($i));
-        }
-    }
-
-    function createRockQuestion($index)
-    {
-        return "Rock Question " . $index;
+        $this->prepareQuestions();
     }
 
     function isPlayable()
@@ -86,30 +70,15 @@ class Game
 
     function  askQuestion()
     {
-        if ($this->currentCategory() == "Pop") {
-            $this->echoln(array_shift($this->popQuestions));
-        }
-        if ($this->currentCategory() == "Science") {
-            $this->echoln(array_shift($this->scienceQuestions));
-        }
-        if ($this->currentCategory() == "Sports") {
-            $this->echoln(array_shift($this->sportsQuestions));
-        }
-        if ($this->currentCategory() == "Rock") {
-            $this->echoln(array_shift($this->rockQuestions));
-        }
+        $question = $this->questions->questionFor($this->currentPlayer()->position());
+        $this->echoln($question);
+
+        return $question;
     }
 
     function currentCategory()
     {
-        $categories = [
-            0 => 'Pop',
-            1 => 'Science',
-            2 => 'Sports',
-            3 => 'Rock',
-        ];
-        $categoryType = $this->currentPlayer()->position() % 4;
-        return $categories[$categoryType];
+        return $this->questions->categoryFor($this->currentPlayer()->position());
     }
 
     function wasCorrectlyAnswered()
@@ -230,6 +199,11 @@ class Game
         );
         $this->echoln("The category is " . $this->currentCategory());
         $this->askQuestion();
+    }
+
+    protected function prepareQuestions()
+    {
+        $this->questions = new Questions();
     }
 
 }
