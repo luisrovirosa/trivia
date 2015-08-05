@@ -102,39 +102,21 @@ class Game
 
     function currentCategory()
     {
-        $currentPosition = $this->currentPlayer()->position();
         $categories = [
-            0 => 'Pop'
+            0 => 'Pop',
+            1 => 'Science',
+            2 => 'Sports',
+            3 => 'Rock',
+            4 => 'Pop',
+            5 => 'Science',
+            6 => 'Sports',
+            7 => 'Rock',
+            8 => 'Pop',
+            9 => 'Science',
+            10 => 'Sports',
+            11 => 'Rock',
         ];
-        if (isset($categories[$currentPosition])) {
-            return $categories[$currentPosition];
-        }
-
-        if ($currentPosition == 4) {
-            return "Pop";
-        }
-        if ($currentPosition == 8) {
-            return "Pop";
-        }
-        if ($currentPosition == 1) {
-            return "Science";
-        }
-        if ($currentPosition == 5) {
-            return "Science";
-        }
-        if ($currentPosition == 9) {
-            return "Science";
-        }
-        if ($currentPosition == 2) {
-            return "Sports";
-        }
-        if ($currentPosition == 6) {
-            return "Sports";
-        }
-        if ($currentPosition == 10) {
-            return "Sports";
-        }
-        return "Rock";
+        return $categories[$this->currentPlayer()->position()];
     }
 
     function wasCorrectlyAnswered()
