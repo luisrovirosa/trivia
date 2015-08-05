@@ -15,11 +15,16 @@ class Game
 
     private $isGettingOutOfPenaltyBox;
 
+    /** @var Output */
+    private $output;
+
     function  __construct()
     {
         $this->players = array();
 
         $this->prepareQuestions();
+
+        $this->output = new Console();
     }
 
     function isPlayable()
@@ -142,7 +147,7 @@ class Game
 
     function echoln($string)
     {
-        echo $string . "\n";
+        $this->output->write($string . "\n");
     }
 
     /**
