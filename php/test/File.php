@@ -2,9 +2,9 @@
 
 namespace Trivia\Test;
 
-use Trivia\Game;
+use Trivia\Output;
 
-class FakeGame extends Game
+class File implements Output
 {
     private $file;
     /**
@@ -18,16 +18,8 @@ class FakeGame extends Game
      */
     public function __construct($logFileName)
     {
-        parent::__construct();
-
         $this->logFileName = $logFileName;
         $this->file = fopen($this->logFileName, 'w');
-        srand(0);
-    }
-
-    function echoln($string)
-    {
-        fwrite($this->file, $string . "\n");
     }
 
     function __destruct()
@@ -35,4 +27,11 @@ class FakeGame extends Game
         fclose($this->file);
     }
 
+    /**
+     * @param string $message
+     */
+    public function write($message)
+    {
+        fwrite($this->file, $message);
+    }
 }

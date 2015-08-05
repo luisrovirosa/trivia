@@ -2,6 +2,8 @@
 
 namespace Trivia\Test;
 
+use Trivia\Game;
+
 class RegressionTest extends \PHPUnit_Framework_TestCase
 {
     const OUTPUT_FILE = './test/current-play.log';
@@ -23,7 +25,9 @@ class RegressionTest extends \PHPUnit_Framework_TestCase
      */
     protected function play($logFileName)
     {
-        $game = new FakeGame($logFileName);
+        srand(0);
+        $output = new File($logFileName);
+        $game = new Game($output);
         $runner = new \GameRunner($game);
         for ($i = 0; $i < self::NUMBER_OR_GAMES; $i++) {
             $runner->run();

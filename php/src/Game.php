@@ -18,13 +18,13 @@ class Game
     /** @var Output */
     private $output;
 
-    function  __construct()
+    function  __construct(Output $output)
     {
         $this->players = array();
 
         $this->prepareQuestions();
 
-        $this->output = new Console();
+        $this->output = $output;
     }
 
     function isPlayable()
