@@ -87,10 +87,7 @@ class Game
 
     public function wrongAnswer()
     {
-        $this->echoln("Question was incorrectly answered");
-        $this->echoln(
-            $this->players[$this->currentPlayerIndex]->name() . " was sent to the penalty box"
-        );
+        $this->messages->wrongAnswer($this->currentPlayer());
         $this->currentPlayer()->gotoPenaltyBox();
 
         $this->nextPlayer();

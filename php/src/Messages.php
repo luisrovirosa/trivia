@@ -67,4 +67,10 @@ class Messages
         $this->write("Answer was correct!!!!");
         $this->write($player->name() . " now has " . $player->purses() . " Gold Coins.");
     }
+
+    public function wrongAnswer(Player $player)
+    {
+        $this->write("Question was incorrectly answered");
+        $this->write($player->name() . " was sent to the penalty box");
+    }
 }
