@@ -39,6 +39,19 @@ class RegressionTest extends \PHPUnit_Framework_TestCase
 
     protected function assertSameOutput()
     {
+        // In order to improve speed, first we check the filesize
+        $this->assertHasSameFileSize();
+
+        $this->assertHasSameContent();
+    }
+
+    protected function assertHasSameFileSize()
+    {
+        $this->assertEquals(filesize(self::ORIGINAL_FILE), filesize(self::OUTPUT_FILE));
+    }
+
+    protected function assertHasSameContent()
+    {
         $output = file_get_contents(self::OUTPUT_FILE);
 
         $originalOutput = file_get_contents(self::ORIGINAL_FILE);
