@@ -3,6 +3,7 @@
 namespace Trivia\Test;
 
 use Trivia\Game;
+use Trivia\Output\File;
 
 class RegressionTest extends \PHPUnit_Framework_TestCase
 {

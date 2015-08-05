@@ -2,6 +2,8 @@
 
 namespace Trivia;
 
+use Trivia\Output\Output;
+
 class Game
 {
     /** @var Player[] */

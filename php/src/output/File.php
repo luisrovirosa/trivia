@@ -1,8 +1,6 @@
 <?php
 
-namespace Trivia\Test;
-
-use Trivia\Output;
+namespace Trivia\Output;
 
 class File implements Output
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Trivia;
+namespace Trivia\Output;
 
 interface Output
 {
