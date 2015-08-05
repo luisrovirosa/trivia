@@ -31,11 +31,6 @@ class Game
         $this->messages = new Messages($output);
     }
 
-    private function isPlayable()
-    {
-        return ($this->howManyPlayers() >= 2);
-    }
-
     public function add($playerName)
     {
         $player = new Player($playerName);
