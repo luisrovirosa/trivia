@@ -42,7 +42,7 @@ class Game
         $this->players[] = $player;
 
         $this->messages->newPlayer($player);
-        $this->echoln("They are player number " . count($this->players));
+        $this->messages->numberOfPlayers(count($this->players));
         return true;
     }
 

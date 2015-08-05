@@ -24,6 +24,11 @@ class Messages
         $this->write($player->name() . " was added");
     }
 
+    public function numberOfPlayers($numberOfPlayers)
+    {
+        $this->write("They are player number $numberOfPlayers");
+    }
+
     private function write($string)
     {
         $this->output->write($string . "\n");
