@@ -66,9 +66,9 @@ class Game
         $this->echoln($this->currentPlayerName() . " is the current player");
         $this->echoln("They have rolled a " . $roll);
         if ($this->inPenaltyBox[$this->currentPlayer]) {
-            if ($roll % 2 != 0) {
-                $this->isGettingOutOfPenaltyBox = true;
+            $this->isGettingOutOfPenaltyBox = $roll % 2 != 0;
 
+            if ($this->isGettingOutOfPenaltyBox) {
                 $this->echoln(
                     $this->currentPlayerName() . " is getting out of the penalty box"
                 );
@@ -78,7 +78,6 @@ class Game
                     $this->currentPlayerName() .
                     " is not getting out of the penalty box"
                 );
-                $this->isGettingOutOfPenaltyBox = false;
             }
         } else {
             $this->playTurn($roll);
