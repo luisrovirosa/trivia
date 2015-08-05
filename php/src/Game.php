@@ -72,15 +72,7 @@ class Game
                 $this->echoln(
                     $this->currentPlayerName() . " is getting out of the penalty box"
                 );
-                $this->movePlayer($roll);
-
-                $this->echoln(
-                    $this->currentPlayerName()
-                    . "'s new location is "
-                    . $this->currentPlayer()->position()
-                );
-                $this->echoln("The category is " . $this->currentCategory());
-                $this->askQuestion();
+                $this->playTurn($roll);
             } else {
                 $this->echoln(
                     $this->currentPlayerName() .
@@ -89,16 +81,7 @@ class Game
                 $this->isGettingOutOfPenaltyBox = false;
             }
         } else {
-
-            $this->movePlayer($roll);
-
-            $this->echoln(
-                $this->currentPlayerName()
-                . "'s new location is "
-                . $this->currentPlayer()->position()
-            );
-            $this->echoln("The category is " . $this->currentCategory());
-            $this->askQuestion();
+            $this->playTurn($roll);
         }
     }
 
@@ -253,6 +236,22 @@ class Game
     protected function winPurse()
     {
         $this->currentPlayer()->winPurse();
+    }
+
+    /**
+     * @param $roll
+     */
+    protected function playTurn($roll)
+    {
+        $this->movePlayer($roll);
+
+        $this->echoln(
+            $this->currentPlayerName()
+            . "'s new location is "
+            . $this->currentPlayer()->position()
+        );
+        $this->echoln("The category is " . $this->currentCategory());
+        $this->askQuestion();
     }
 
 }
