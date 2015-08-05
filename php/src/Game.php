@@ -7,7 +7,6 @@ class Game
     /** @var Player[] */
     private $players;
 
-    private $places;
     private $purses;
     private $inPenaltyBox;
 
@@ -23,7 +22,6 @@ class Game
     {
 
         $this->players = array();
-        $this->places = array(0);
         $this->purses = array(0);
         $this->inPenaltyBox = array(0);
 
@@ -53,7 +51,6 @@ class Game
     function add($playerName)
     {
         $this->players[] = new Player($playerName);
-        $this->places[$this->howManyPlayers()] = 0;
         $this->purses[$this->howManyPlayers()] = 0;
         $this->inPenaltyBox[$this->howManyPlayers()] = false;
 
@@ -78,15 +75,12 @@ class Game
                 $this->echoln(
                     $this->currentPlayerName() . " is getting out of the penalty box"
                 );
-                $this->places[$this->currentPlayer] = $this->places[$this->currentPlayer] + $roll;
-                if ($this->places[$this->currentPlayer] > 11) {
-                    $this->places[$this->currentPlayer] = $this->places[$this->currentPlayer] - 12;
-                }
+                $this->movePlayer($roll);
 
                 $this->echoln(
                     $this->currentPlayerName()
                     . "'s new location is "
-                    . $this->places[$this->currentPlayer]
+                    . $this->currentPlayer()->position()
                 );
                 $this->echoln("The category is " . $this->currentCategory());
                 $this->askQuestion();
@@ -99,15 +93,12 @@ class Game
             }
         } else {
 
-            $this->places[$this->currentPlayer] = $this->places[$this->currentPlayer] + $roll;
-            if ($this->places[$this->currentPlayer] > 11) {
-                $this->places[$this->currentPlayer] = $this->places[$this->currentPlayer] - 12;
-            }
+            $this->movePlayer($roll);
 
             $this->echoln(
                 $this->currentPlayerName()
                 . "'s new location is "
-                . $this->places[$this->currentPlayer]
+                . $this->currentPlayer()->position()
             );
             $this->echoln("The category is " . $this->currentCategory());
             $this->askQuestion();
@@ -132,31 +123,32 @@ class Game
 
     function currentCategory()
     {
-        if ($this->places[$this->currentPlayer] == 0) {
+        $currentPosition = $this->currentPlayer()->position();
+        if ($currentPosition == 0) {
             return "Pop";
         }
-        if ($this->places[$this->currentPlayer] == 4) {
+        if ($currentPosition == 4) {
             return "Pop";
         }
-        if ($this->places[$this->currentPlayer] == 8) {
+        if ($currentPosition == 8) {
             return "Pop";
         }
-        if ($this->places[$this->currentPlayer] == 1) {
+        if ($currentPosition == 1) {
             return "Science";
         }
-        if ($this->places[$this->currentPlayer] == 5) {
+        if ($currentPosition == 5) {
             return "Science";
         }
-        if ($this->places[$this->currentPlayer] == 9) {
+        if ($currentPosition == 9) {
             return "Science";
         }
-        if ($this->places[$this->currentPlayer] == 2) {
+        if ($currentPosition == 2) {
             return "Sports";
         }
-        if ($this->places[$this->currentPlayer] == 6) {
+        if ($currentPosition == 6) {
             return "Sports";
         }
-        if ($this->places[$this->currentPlayer] == 10) {
+        if ($currentPosition == 10) {
             return "Sports";
         }
         return "Rock";
@@ -249,6 +241,15 @@ class Game
     protected function currentPlayer()
     {
         return $this->players[$this->currentPlayer];
+    }
+
+    /**
+     * @param $roll
+     */
+    protected function movePlayer($roll)
+    {
+        $nextPlace = ($this->currentPlayer()->position() + $roll) % 12;
+        $this->currentPlayer()->moveTo($nextPlace);
     }
 
 }
