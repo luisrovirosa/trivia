@@ -73,7 +73,6 @@ class Game
         $question = $this->questions->questionFor($this->currentPlayer()->position());
         $this->messages->question($question);
 
-
         return $question;
     }
 
@@ -86,14 +85,8 @@ class Game
     {
         if ($this->currentPlayer()->isInPenaltyBox()) {
             if ($this->isGettingOutOfPenaltyBox) {
-                $this->echoln("Answer was correct!!!!");
+
                 $this->winPurse();
-                $this->echoln(
-                    $this->players[$this->currentPlayerIndex]->name()
-                    . " now has "
-                    . $this->currentPlayer()->purses()
-                    . " Gold Coins."
-                );
 
                 $winner = $this->didPlayerWin();
                 $this->currentPlayerIndex++;
@@ -111,14 +104,7 @@ class Game
             }
         } else {
 
-            $this->echoln("Answer was corrent!!!!");
             $this->winPurse();
-            $this->echoln(
-                $this->players[$this->currentPlayerIndex]->name()
-                . " now has "
-                . $this->currentPlayer()->purses()
-                . " Gold Coins."
-            );
 
             $winner = $this->didPlayerWin();
             $this->nextPlayer();
@@ -178,6 +164,7 @@ class Game
     protected function winPurse()
     {
         $this->currentPlayer()->winPurse();
+        $this->messages->winPurse($this->currentPlayer());
     }
 
     /**

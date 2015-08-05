@@ -61,4 +61,10 @@ class Messages
     {
         $this->write($question->text());
     }
+
+    public function winPurse(Player $player)
+    {
+        $this->write("Answer was correct!!!!");
+        $this->write($player->name() . " now has " . $player->purses() . " Gold Coins.");
+    }
 }
