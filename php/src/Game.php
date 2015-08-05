@@ -107,16 +107,9 @@ class Game
             1 => 'Science',
             2 => 'Sports',
             3 => 'Rock',
-            4 => 'Pop',
-            5 => 'Science',
-            6 => 'Sports',
-            7 => 'Rock',
-            8 => 'Pop',
-            9 => 'Science',
-            10 => 'Sports',
-            11 => 'Rock',
         ];
-        return $categories[$this->currentPlayer()->position()];
+        $categoryType = $this->currentPlayer()->position() % 4;
+        return $categories[$categoryType];
     }
 
     function wasCorrectlyAnswered()
