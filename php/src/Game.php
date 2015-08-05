@@ -69,16 +69,14 @@ class Game
 
     function  roll($roll)
     {
-        $this->echoln($this->players[$this->currentPlayer]->name() . " is the current player");
+        $this->echoln($this->currentPlayerName() . " is the current player");
         $this->echoln("They have rolled a " . $roll);
-
         if ($this->inPenaltyBox[$this->currentPlayer]) {
             if ($roll % 2 != 0) {
                 $this->isGettingOutOfPenaltyBox = true;
 
                 $this->echoln(
-                    $this->players[$this->currentPlayer]->name(
-                    ) . " is getting out of the penalty box"
+                    $this->currentPlayerName() . " is getting out of the penalty box"
                 );
                 $this->places[$this->currentPlayer] = $this->places[$this->currentPlayer] + $roll;
                 if ($this->places[$this->currentPlayer] > 11) {
@@ -86,7 +84,7 @@ class Game
                 }
 
                 $this->echoln(
-                    $this->players[$this->currentPlayer]->name()
+                    $this->currentPlayerName()
                     . "'s new location is "
                     . $this->places[$this->currentPlayer]
                 );
@@ -94,8 +92,8 @@ class Game
                 $this->askQuestion();
             } else {
                 $this->echoln(
-                    $this->players[$this->currentPlayer]->name(
-                    ) . " is not getting out of the penalty box"
+                    $this->currentPlayerName() .
+                    " is not getting out of the penalty box"
                 );
                 $this->isGettingOutOfPenaltyBox = false;
             }
@@ -107,7 +105,7 @@ class Game
             }
 
             $this->echoln(
-                $this->players[$this->currentPlayer]->name()
+                $this->currentPlayerName()
                 . "'s new location is "
                 . $this->places[$this->currentPlayer]
             );
@@ -235,6 +233,22 @@ class Game
     function echoln($string)
     {
         echo $string . "\n";
+    }
+
+    /**
+     * @return string
+     */
+    protected function currentPlayerName()
+    {
+        return $this->currentPlayer()->name();
+    }
+
+    /**
+     * @return Player
+     */
+    protected function currentPlayer()
+    {
+        return $this->players[$this->currentPlayer];
     }
 
 }
