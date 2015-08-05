@@ -89,17 +89,11 @@ class Game
                 $this->winPurse();
 
                 $winner = $this->didPlayerWin();
-                $this->currentPlayerIndex++;
-                if ($this->currentPlayerIndex == count($this->players)) {
-                    $this->currentPlayerIndex = 0;
-                }
+                $this->nextPlayer();
 
                 return $winner;
             } else {
-                $this->currentPlayerIndex++;
-                if ($this->currentPlayerIndex == count($this->players)) {
-                    $this->currentPlayerIndex = 0;
-                }
+                $this->nextPlayer();
                 return true;
             }
         } else {
