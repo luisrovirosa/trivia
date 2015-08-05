@@ -27,6 +27,8 @@ class Game
         $this->prepareQuestions();
 
         $this->output = $output;
+
+        $this->messages = new Messages($output);
     }
 
     function isPlayable()
@@ -36,9 +38,10 @@ class Game
 
     function add($playerName)
     {
-        $this->players[] = new Player($playerName);
+        $player = new Player($playerName);
+        $this->players[] = $player;
 
-        $this->echoln($playerName . " was added");
+        $this->messages->newPlayer($player);
         $this->echoln("They are player number " . count($this->players));
         return true;
     }
