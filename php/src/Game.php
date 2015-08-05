@@ -103,9 +103,13 @@ class Game
     function currentCategory()
     {
         $currentPosition = $this->currentPlayer()->position();
-        if ($currentPosition == 0) {
-            return "Pop";
+        $categories = [
+            0 => 'Pop'
+        ];
+        if (isset($categories[$currentPosition])) {
+            return $categories[$currentPosition];
         }
+
         if ($currentPosition == 4) {
             return "Pop";
         }
