@@ -4,7 +4,9 @@ namespace Trivia;
 
 class Game
 {
-    var $players;
+    /** @var Player[] */
+    private $players;
+
     var $places;
     var $purses;
     var $inPenaltyBox;
@@ -50,7 +52,7 @@ class Game
 
     function add($playerName)
     {
-        array_push($this->players, $playerName);
+        $this->players[] = new Player($playerName);
         $this->places[$this->howManyPlayers()] = 0;
         $this->purses[$this->howManyPlayers()] = 0;
         $this->inPenaltyBox[$this->howManyPlayers()] = false;
@@ -67,7 +69,7 @@ class Game
 
     function  roll($roll)
     {
-        $this->echoln($this->players[$this->currentPlayer] . " is the current player");
+        $this->echoln($this->players[$this->currentPlayer]->name() . " is the current player");
         $this->echoln("They have rolled a " . $roll);
 
         if ($this->inPenaltyBox[$this->currentPlayer]) {
@@ -75,7 +77,8 @@ class Game
                 $this->isGettingOutOfPenaltyBox = true;
 
                 $this->echoln(
-                    $this->players[$this->currentPlayer] . " is getting out of the penalty box"
+                    $this->players[$this->currentPlayer]->name(
+                    ) . " is getting out of the penalty box"
                 );
                 $this->places[$this->currentPlayer] = $this->places[$this->currentPlayer] + $roll;
                 if ($this->places[$this->currentPlayer] > 11) {
@@ -83,7 +86,7 @@ class Game
                 }
 
                 $this->echoln(
-                    $this->players[$this->currentPlayer]
+                    $this->players[$this->currentPlayer]->name()
                     . "'s new location is "
                     . $this->places[$this->currentPlayer]
                 );
@@ -91,7 +94,8 @@ class Game
                 $this->askQuestion();
             } else {
                 $this->echoln(
-                    $this->players[$this->currentPlayer] . " is not getting out of the penalty box"
+                    $this->players[$this->currentPlayer]->name(
+                    ) . " is not getting out of the penalty box"
                 );
                 $this->isGettingOutOfPenaltyBox = false;
             }
@@ -103,7 +107,7 @@ class Game
             }
 
             $this->echoln(
-                $this->players[$this->currentPlayer]
+                $this->players[$this->currentPlayer]->name()
                 . "'s new location is "
                 . $this->places[$this->currentPlayer]
             );
@@ -167,7 +171,7 @@ class Game
                 $this->echoln("Answer was correct!!!!");
                 $this->purses[$this->currentPlayer]++;
                 $this->echoln(
-                    $this->players[$this->currentPlayer]
+                    $this->players[$this->currentPlayer]->name()
                     . " now has "
                     . $this->purses[$this->currentPlayer]
                     . " Gold Coins."
@@ -192,7 +196,7 @@ class Game
             $this->echoln("Answer was corrent!!!!");
             $this->purses[$this->currentPlayer]++;
             $this->echoln(
-                $this->players[$this->currentPlayer]
+                $this->players[$this->currentPlayer]->name()
                 . " now has "
                 . $this->purses[$this->currentPlayer]
                 . " Gold Coins."
@@ -211,7 +215,9 @@ class Game
     function wrongAnswer()
     {
         $this->echoln("Question was incorrectly answered");
-        $this->echoln($this->players[$this->currentPlayer] . " was sent to the penalty box");
+        $this->echoln(
+            $this->players[$this->currentPlayer]->name() . " was sent to the penalty box"
+        );
         $this->inPenaltyBox[$this->currentPlayer] = true;
 
         $this->currentPlayer++;
