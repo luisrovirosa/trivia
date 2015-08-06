@@ -12,16 +12,22 @@ class Position
      * @var Board
      */
     private $board;
+    /**
+     * @var Category
+     */
+    private $category;
 
     /**
      * Position constructor.
      * @param int $value
      * @param Board $board
+     * @param Category $category
      */
-    public function __construct($value, Board $board)
+    public function __construct($value, Board $board, Category $category)
     {
         $this->value = $value;
         $this->board = $board;
+        $this->category = $category;
     }
 
     public function value()
@@ -32,5 +38,13 @@ class Position
     public function move($roll)
     {
         return $this->board->move($this, $roll);
+    }
+
+    /**
+     * @return Category
+     */
+    public function category()
+    {
+        return $this->category;
     }
 }

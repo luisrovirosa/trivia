@@ -9,9 +9,6 @@ class Game
     /** @var Players */
     private $players;
 
-    /** @var Questions */
-    private $questions;
-
     /** @var Board */
     private $board;
 
@@ -19,11 +16,9 @@ class Game
     {
         $this->players = new Players();
 
-        $this->prepareQuestions();
+        $this->board = new Board();
 
         $this->messages = new Messages($output);
-
-        $this->board = new Board();
     }
 
     public function addPlayer($playerName)
@@ -105,11 +100,6 @@ class Game
         $this->askQuestion();
     }
 
-    private function prepareQuestions()
-    {
-        $this->questions = new Questions();
-    }
-
     /**
      * @return Player
      */
@@ -130,12 +120,12 @@ class Game
 
     private function currentCategory()
     {
-        return $this->questions->categoryNameFor($this->currentPlayer()->position());
+        return $this->currentPlayer()->position()->category()->name();
     }
 
     private function askQuestion()
     {
-        $question = $this->questions->questionFor($this->currentPlayer()->position());
+        $question = $this->board->questionFor($this->currentPlayer()->positionValue());
         $this->messages->question($question);
 
         return $question;

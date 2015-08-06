@@ -81,7 +81,7 @@ class Messages
 
     public function move(Player $player, $categoryName)
     {
-        $this->write($player->name() . "'s new location is " . $player->position());
+        $this->write($player->name() . "'s new location is " . $player->positionValue());
         $this->write("The category is $categoryName");
     }
 

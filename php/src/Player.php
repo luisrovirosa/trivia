@@ -43,9 +43,17 @@ class Player
     }
 
     /**
-     * @return int
+     * @return Position
      */
     public function position()
+    {
+        return $this->position;
+    }
+
+    /**
+     * @return int
+     */
+    public function positionValue()
     {
         return $this->position->value();
     }
