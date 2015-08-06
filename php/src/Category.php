@@ -45,4 +45,10 @@ class Category
     {
         return $this->name;
     }
+
+    function __toString()
+    {
+        return $this->name();
+    }
+
 }

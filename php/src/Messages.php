@@ -79,10 +79,10 @@ class Messages
         $this->write($player->name() . " was sent to the penalty box");
     }
 
-    public function move(Player $player, $categoryName)
+    public function move(Player $player)
     {
         $this->write($player->name() . "'s new location is " . $player->positionValue());
-        $this->write("The category is $categoryName");
+        $this->write("The category is " . $player->position()->category());
     }
 
     private function write($string)

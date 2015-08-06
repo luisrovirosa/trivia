@@ -96,7 +96,7 @@ class Game
     {
         $this->movePlayer($roll);
 
-        $this->messages->move($this->currentPlayer(), $this->currentCategory());
+        $this->messages->move($this->currentPlayer());
         $this->askQuestion();
     }
 
@@ -116,11 +116,6 @@ class Game
     private function nextPlayer()
     {
         $this->players->next();
-    }
-
-    private function currentCategory()
-    {
-        return $this->currentPlayer()->position()->category()->name();
     }
 
     private function askQuestion()
