@@ -1,4 +1,6 @@
 # PHP Refactoring
+To see this code, please change to php-refactoring branch.
+
 ## Objective
 1. Map real objects with code classes.
 2. Improve legibility.
@@ -62,3 +64,6 @@
 
 ## How to run the kata
 
+1. Instalar [composer](https://getcomposer.org/) `curl -sS https://getcomposer.org/installer | php`
+2. `composer install` (estando en la carpeta php)
+3. `./vendor/bin/phpunit`
