@@ -33,13 +33,8 @@ class GameRunner
     protected function play()
     {
         while ($this->game->isNotEnded()) {
-            $this->game->nextPlayer();
-            $this->game->roll(rand(0, 5) + 1);
-            if ($this->isGoingToAnswerCorrectly()) {
-                $this->game->wasCorrectlyAnswered();
-            } else {
-                $this->game->wrongAnswer();
-            }
+            $this->rollNextPlayer();
+            $this->answer();
         }
     }
 
@@ -49,6 +44,21 @@ class GameRunner
     protected function isGoingToAnswerCorrectly()
     {
         return rand(0, 9) != 7;
+    }
+
+    protected function rollNextPlayer()
+    {
+        $this->game->nextPlayer();
+        $this->game->roll(rand(0, 5) + 1);
+    }
+
+    protected function answer()
+    {
+        if ($this->isGoingToAnswerCorrectly()) {
+            $this->game->wasCorrectlyAnswered();
+        } else {
+            $this->game->wrongAnswer();
+        }
     }
 }
 
