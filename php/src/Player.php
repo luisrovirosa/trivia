@@ -20,15 +20,22 @@ class Player
     private $isGettingOutOfPenaltyBox;
 
     /**
+     * @var Position
+     */
+    private $position;
+
+    /**
      * Player constructor.
      * @param string $name
+     * @param Position $position
      */
-    public function __construct($name)
+    public function __construct($name, Position $position)
     {
         $this->name = $name;
         $this->place = 0;
         $this->numPurses = 0;
         $this->isInPenaltyBox = false;
+        $this->position = $position;
     }
 
     /**
@@ -48,11 +55,13 @@ class Player
     }
 
     /**
-     * @param int $newPosition
+     * @param $roll
      */
-    public function moveTo($newPosition)
+    public function moveTo($roll)
     {
-        $this->place = $newPosition;
+        $this->position = $this->position->move($roll);
+
+        $this->place = $this->position->value();
     }
 
     /**

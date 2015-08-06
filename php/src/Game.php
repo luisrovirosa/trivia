@@ -12,6 +12,9 @@ class Game
     /** @var Questions */
     private $questions;
 
+    /** @var Board */
+    private $board;
+
     public function  __construct(Output $output)
     {
         $this->players = new Players();
@@ -19,11 +22,13 @@ class Game
         $this->prepareQuestions();
 
         $this->messages = new Messages($output);
+
+        $this->board = new Board();
     }
 
     public function addPlayer($playerName)
     {
-        $player = new Player($playerName);
+        $player = new Player($playerName, $this->board->initialPosition());
         $this->players->add($player);
 
         $this->messages->newPlayer($player);
@@ -80,8 +85,7 @@ class Game
      */
     private function movePlayer($roll)
     {
-        $nextPlace = ($this->currentPlayer()->position() + $roll) % 12;
-        $this->currentPlayer()->moveTo($nextPlace);
+        $this->currentPlayer()->moveTo($roll);
     }
 
     private function winPurse()
