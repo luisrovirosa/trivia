@@ -4,17 +4,13 @@ namespace Trivia;
 
 class Position
 {
-    /**
-     * @var int
-     */
+    /** @var int */
     private $value;
-    /**
-     * @var Board
-     */
+
+    /** @var Board */
     private $board;
-    /**
-     * @var Category
-     */
+
+    /** @var Category */
     private $category;
 
     /**
@@ -30,11 +26,18 @@ class Position
         $this->category = $category;
     }
 
+    /**
+     * @return int
+     */
     public function value()
     {
         return $this->value;
     }
 
+    /**
+     * @param int $roll
+     * @return Position
+     */
     public function move($roll)
     {
         return $this->board->move($this, $roll);
@@ -48,6 +51,9 @@ class Position
         return $this->category;
     }
 
+    /**
+     * @return Question
+     */
     public function question()
     {
         return $this->category->question();

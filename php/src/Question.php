@@ -4,14 +4,10 @@ namespace Trivia;
 
 class Question
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $text;
 
-    /**
-     * @var Category
-     */
+    /** @var Category */
     private $category;
 
     /**
