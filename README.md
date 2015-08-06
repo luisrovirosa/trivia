@@ -1,6 +1,4 @@
 # PHP Refactoring
-To see this code, please change to php-refactoring branch.
-
 ## Objective
 1. Map real objects with code classes.
 2. Improve legibility.
