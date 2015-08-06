@@ -34,24 +34,6 @@ class Board
 
     /**
      * @param int $position
-     * @return string
-     */
-    public function categoryNameFor($position)
-    {
-        return $this->categoryFor($position)->name();
-    }
-
-    /**
-     * @param int $position
-     * @return Question
-     */
-    public function questionFor($position)
-    {
-        return $this->categoryFor($position)->question();
-    }
-
-    /**
-     * @param int $position
      * @return Category
      */
     protected function categoryFor($position)

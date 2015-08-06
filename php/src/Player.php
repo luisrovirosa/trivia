@@ -110,4 +110,9 @@ class Player
     {
         return $this->isGettingOutOfPenaltyBox;
     }
+
+    public function question()
+    {
+        return $this->position->question();
+    }
 }

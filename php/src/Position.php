@@ -47,4 +47,9 @@ class Position
     {
         return $this->category;
     }
+
+    public function question()
+    {
+        return $this->category->question();
+    }
 }

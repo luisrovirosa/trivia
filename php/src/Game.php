@@ -120,7 +120,7 @@ class Game
 
     private function askQuestion()
     {
-        $question = $this->board->questionFor($this->currentPlayer()->positionValue());
+        $question = $this->currentPlayer()->question();
         $this->messages->question($question);
 
         return $question;
