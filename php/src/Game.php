@@ -12,7 +12,7 @@ class Game
     /** @var Board */
     private $board;
 
-    /** @var  Messages */
+    /** @var Messages */
     private $messages;
 
     public function  __construct(Output $output)
@@ -76,7 +76,7 @@ class Game
      */
     private function movePlayer($roll)
     {
-        $this->currentPlayer()->moveTo($roll);
+        $this->currentPlayer()->move($roll);
     }
 
     private function winPurse()

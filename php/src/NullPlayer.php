@@ -49,7 +49,7 @@ class NullPlayer extends Player
     /**
      * @param $roll
      */
-    public function moveTo($roll)
+    public function move($roll)
     {
     }
 

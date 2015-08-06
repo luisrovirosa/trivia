@@ -4,6 +4,9 @@ namespace Trivia;
 
 class Board
 {
+    const BOARD_SIZE = 12;
+    const NUMBER_OF_QUESTIONS_PER_CATEGORY = 50;
+    const FIRST_POSITION = 0;
 
     /** @var  Category[] */
     private $categories;
@@ -23,12 +26,12 @@ class Board
 
     public function initialPosition()
     {
-        return new Position(0, $this, $this->categoryFor(0));
+        return new Position(self::FIRST_POSITION, $this, $this->categoryFor(self::FIRST_POSITION));
     }
 
     public function move(Position $position, $roll)
     {
-        $value = ($position->value() + $roll) % 12;
+        $value = ($position->value() + $roll) % self::BOARD_SIZE;
 
         return new Position($value, $this, $this->categoryFor($value));
     }
@@ -48,7 +51,7 @@ class Board
     protected function addQuestionsTo(Category $category)
     {
         $categoryName = $category->name();
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < self::NUMBER_OF_QUESTIONS_PER_CATEGORY; $i++) {
             $question = new Question("$categoryName Question " . $i);
             $category->addQuestion($question);
         }
