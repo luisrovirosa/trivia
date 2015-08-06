@@ -8,24 +8,31 @@ class Players
     private $players;
 
     private $currentPlayerIndex;
+    /**
+     * @var Board
+     */
+    private $board;
 
     /**
      * Players constructor.
+     * @param Board $board
      */
-    public function __construct()
+    public function __construct(Board $board)
     {
         $this->players = [];
         $this->currentPlayerIndex = 0;
+        $this->board = $board;
     }
 
     /**
-     * @param Player $player
-     * @return $this
+     * @param string $playerName
+     * @return Player
      */
-    public function add(Player $player)
+    public function newPlayer($playerName)
     {
+        $player = new Player($playerName, $this->board->initialPosition());
         $this->players[] = $player;
-        return $this;
+        return $player;
     }
 
     /**

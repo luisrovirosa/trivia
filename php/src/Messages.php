@@ -22,17 +22,11 @@ class Messages
 
     /**
      * @param Player $player
-     */
-    public function newPlayer(Player $player)
-    {
-        $this->write($player->name() . " was added");
-    }
-
-    /**
      * @param $numberOfPlayers
      */
-    public function numberOfPlayers($numberOfPlayers)
+    public function newPlayer(Player $player, $numberOfPlayers)
     {
+        $this->write($player->name() . " was added");
         $this->write("They are player number $numberOfPlayers");
     }
 

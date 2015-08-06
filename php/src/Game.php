@@ -12,22 +12,23 @@ class Game
     /** @var Board */
     private $board;
 
+    /** @var  Messages */
+    private $messages;
+
     public function  __construct(Output $output)
     {
-        $this->players = new Players();
-
         $this->board = new Board();
+
+        $this->players = new Players($this->board);
 
         $this->messages = new Messages($output);
     }
 
     public function addPlayer($playerName)
     {
-        $player = new Player($playerName, $this->board->initialPosition());
-        $this->players->add($player);
+        $player = $this->players->newPlayer($playerName);
 
-        $this->messages->newPlayer($player);
-        $this->messages->numberOfPlayers($this->howManyPlayers());
+        $this->messages->newPlayer($player, $this->howManyPlayers());
         return $this;
     }
 
