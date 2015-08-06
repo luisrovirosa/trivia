@@ -49,6 +49,9 @@ class Players
      */
     public function current()
     {
+        if (!isset($this->players[$this->currentPlayerIndex])){
+            return NullPlayer::getInstance();
+        }
         return $this->players[$this->currentPlayerIndex];
     }
 

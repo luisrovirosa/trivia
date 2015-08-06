@@ -32,7 +32,7 @@ class GameRunner
 
     protected function play()
     {
-        do {
+        while ($this->game->isNotEnded()) {
             $this->game->nextPlayer();
             $this->game->roll(rand(0, 5) + 1);
             if ($this->isGoingToAnswerCorrectly()) {
@@ -40,7 +40,7 @@ class GameRunner
             } else {
                 $this->game->wrongAnswer();
             }
-        } while ($this->game->isNotEnded());
+        }
     }
 
     /**
