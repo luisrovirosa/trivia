@@ -33,20 +33,20 @@ class GameRunner
     protected function play()
     {
         do {
-            $this->game->roll(rand(0, 5) + 1);
-            if ($this->isCorrectAnswer()) {
-                $notAWinner = $this->game->wasCorrectlyAnswered();
-            } else {
-                $notAWinner = $this->game->wrongAnswer();
-            }
             $this->game->nextPlayer();
-        } while ($notAWinner);
+            $this->game->roll(rand(0, 5) + 1);
+            if ($this->isGoingToAnswerCorrectly()) {
+                $this->game->wasCorrectlyAnswered();
+            } else {
+                $this->game->wrongAnswer();
+            }
+        } while ($this->game->isNotEnded());
     }
 
     /**
      * @return bool
      */
-    protected function isCorrectAnswer()
+    protected function isGoingToAnswerCorrectly()
     {
         return rand(0, 9) != 7;
     }

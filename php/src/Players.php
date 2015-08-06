@@ -20,7 +20,7 @@ class Players
     public function __construct(Board $board)
     {
         $this->players = [];
-        $this->currentPlayerIndex = 0;
+        $this->currentPlayerIndex = -1;
         $this->board = $board;
     }
 

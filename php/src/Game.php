@@ -52,25 +52,19 @@ class Game
 
     public function wasCorrectlyAnswered()
     {
-        $gameContinue = true;
         $isInPenaltyBox = $this->currentPlayer()->isInPenaltyBox();
         if (!$isInPenaltyBox || $this->currentPlayer()->isGettingOutOfPenaltyBox()) {
             $this->winPurse();
-            $gameContinue = $this->didPlayerWin();
         }
-
-        return $gameContinue;
     }
 
     public function wrongAnswer()
     {
         $this->messages->wrongAnswer($this->currentPlayer());
         $this->currentPlayer()->gotoPenaltyBox();
-
-        return true;
     }
 
-    private function didPlayerWin()
+    public function isNotEnded()
     {
         $currentPurses = $this->currentPlayer()->purses();
 
