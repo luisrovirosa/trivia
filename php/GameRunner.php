@@ -39,6 +39,7 @@ class GameRunner
             } else {
                 $notAWinner = $this->game->wasCorrectlyAnswered();
             }
+            $this->game->nextPlayer();
         } while ($notAWinner);
     }
 }

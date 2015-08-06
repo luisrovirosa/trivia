@@ -58,7 +58,6 @@ class Game
             $this->winPurse();
             $gameContinue = $this->didPlayerWin();
         }
-        $this->nextPlayer();
 
         return $gameContinue;
     }
@@ -67,7 +66,6 @@ class Game
     {
         $this->messages->wrongAnswer($this->currentPlayer());
         $this->currentPlayer()->gotoPenaltyBox();
-        $this->nextPlayer();
 
         return true;
     }
@@ -117,7 +115,7 @@ class Game
         return $this->players->number();
     }
 
-    private function nextPlayer()
+    public function nextPlayer()
     {
         $this->players->next();
     }
