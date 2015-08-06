@@ -19,7 +19,7 @@ class Game
     {
         $this->board = new Board();
 
-        $this->players = new Players($this->board);
+        $this->players = new Players($this->board->initialPosition());
 
         $this->messages = new Messages($output);
     }

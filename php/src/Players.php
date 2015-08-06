@@ -8,20 +8,21 @@ class Players
     private $players;
 
     private $currentPlayerIndex;
+
     /**
-     * @var Board
+     * @var Position
      */
-    private $board;
+    private $initialPosition;
 
     /**
      * Players constructor.
-     * @param Board $board
+     * @param Position $initialPosition
      */
-    public function __construct(Board $board)
+    public function __construct(Position $initialPosition)
     {
         $this->players = [];
         $this->currentPlayerIndex = -1;
-        $this->board = $board;
+        $this->initialPosition = $initialPosition;
     }
 
     /**
@@ -30,7 +31,7 @@ class Players
      */
     public function newPlayer($playerName)
     {
-        $player = new Player($playerName, $this->board->initialPosition());
+        $player = new Player($playerName, $this->initialPosition);
         $this->players[] = $player;
 
         return $player;
@@ -49,9 +50,10 @@ class Players
      */
     public function current()
     {
-        if (!isset($this->players[$this->currentPlayerIndex])){
+        if (!isset($this->players[$this->currentPlayerIndex])) {
             return NullPlayer::getInstance();
         }
+
         return $this->players[$this->currentPlayerIndex];
     }
 
