@@ -7,18 +7,13 @@ class Question
     /** @var string */
     private $text;
 
-    /** @var Category */
-    private $category;
-
     /**
      * Question constructor.
      * @param string $text
-     * @param Category $category
      */
-    public function __construct($text, Category $category)
+    public function __construct($text)
     {
         $this->text = $text;
-        $this->category = $category;
     }
 
     /**

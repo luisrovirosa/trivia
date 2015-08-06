@@ -49,7 +49,7 @@ class Board
     {
         $categoryName = $category->name();
         for ($i = 0; $i < 50; $i++) {
-            $question = new Question("$categoryName Question " . $i, $category);
+            $question = new Question("$categoryName Question " . $i);
             $category->addQuestion($question);
         }
     }
