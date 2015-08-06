@@ -10,9 +10,6 @@ class Player
     /** @var  int */
     private $numPurses;
 
-    /** @var int */
-    private $place;
-
     /** @var bool */
     private $isInPenaltyBox;
 
@@ -32,7 +29,6 @@ class Player
     public function __construct($name, Position $position)
     {
         $this->name = $name;
-        $this->place = 0;
         $this->numPurses = 0;
         $this->isInPenaltyBox = false;
         $this->position = $position;
@@ -51,7 +47,7 @@ class Player
      */
     public function position()
     {
-        return $this->place;
+        return $this->position->value();
     }
 
     /**
@@ -60,8 +56,6 @@ class Player
     public function moveTo($roll)
     {
         $this->position = $this->position->move($roll);
-
-        $this->place = $this->position->value();
     }
 
     /**
