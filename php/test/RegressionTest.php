@@ -28,9 +28,9 @@ class RegressionTest extends \PHPUnit_Framework_TestCase
     {
         srand(0);
         $output = new File($logFileName);
-        $game = new Game($output);
-        $runner = new \GameRunner($game);
         for ($i = 0; $i < self::NUMBER_OR_GAMES; $i++) {
+            $game = new Game($output);
+            $runner = new \GameRunner($game);
             $runner->run();
         }
     }
