@@ -27,8 +27,8 @@ class Game
     public function addPlayer($playerName)
     {
         $player = $this->players->newPlayer($playerName);
-
         $this->messages->newPlayer($player, $this->howManyPlayers());
+
         return $this;
     }
 
@@ -41,6 +41,7 @@ class Game
         $player->gettingOutOfPenaltyBox($roll % 2 != 0);
         if ($player->isInPenaltyBox() && !$player->isGettingOutOfPenaltyBox()) {
             $this->messages->isNotGettingOutOfPenalty($player);
+
             return;
         }
         if ($player->isInPenaltyBox()) {
@@ -58,6 +59,7 @@ class Game
             $gameContinue = $this->didPlayerWin();
         }
         $this->nextPlayer();
+
         return $gameContinue;
     }
 
@@ -65,14 +67,15 @@ class Game
     {
         $this->messages->wrongAnswer($this->currentPlayer());
         $this->currentPlayer()->gotoPenaltyBox();
-
         $this->nextPlayer();
+
         return true;
     }
 
     private function didPlayerWin()
     {
         $currentPurses = $this->currentPlayer()->purses();
+
         return !($currentPurses == 6);
     }
 

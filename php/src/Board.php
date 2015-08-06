@@ -29,6 +29,7 @@ class Board
     public function move(Position $position, $roll)
     {
         $value = ($position->value() + $roll) % 12;
+
         return new Position($value, $this, $this->categoryFor($value));
     }
 

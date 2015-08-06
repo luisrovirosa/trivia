@@ -32,6 +32,7 @@ class Players
     {
         $player = new Player($playerName, $this->board->initialPosition());
         $this->players[] = $player;
+
         return $player;
     }
 
