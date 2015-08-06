@@ -34,13 +34,21 @@ class GameRunner
     {
         do {
             $this->game->roll(rand(0, 5) + 1);
-            if (rand(0, 9) == 7) {
-                $notAWinner = $this->game->wrongAnswer();
-            } else {
+            if ($this->isCorrectAnswer()) {
                 $notAWinner = $this->game->wasCorrectlyAnswered();
+            } else {
+                $notAWinner = $this->game->wrongAnswer();
             }
             $this->game->nextPlayer();
         } while ($notAWinner);
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isCorrectAnswer()
+    {
+        return rand(0, 9) != 7;
     }
 }
 
